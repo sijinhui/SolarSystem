@@ -78,6 +78,7 @@ enum {
  REVK_SETTINGS_BITFIELD_prefixhost,
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+ REVK_SETTINGS_BITFIELD_ws2812rgb,
 #else
 #endif
 #endif
@@ -151,6 +152,7 @@ struct revk_settings_bits_s {
  uint8_t prefixhost:1;	// MQTT use (appname/)hostname/topic instead of topic/(appname/)hostname
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+ uint8_t ws2812rgb:1;	// Reverse green and red on WS2812 LED
 #else
 #endif
 #endif
@@ -211,7 +213,6 @@ extern char* hostname;	// Hostname[.local]<br>(used in DHCP and MQTT)
 #else
 extern char* hostname;	// Host name<br>(used in DHCP and MQTT)
 #endif
-extern char* appname;	// Application name
 extern char* otahost;	// OTA hostname
 extern uint8_t otadays;	// OTA auto load (days)
 extern uint16_t otastart;	// OTA check after startup (min seconds)
@@ -245,6 +246,7 @@ extern char* topicha;	// MQTT Topic for homeassistant
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
 extern revk_gpio_t blink;	// WS2812 LED
+#define	ws2812rgb	revk_settings_bits.ws2812rgb
 #else
 extern revk_gpio_t blink[3];	// R, G, B LED array (set all the same for WS2812 LED)
 #endif
@@ -476,7 +478,6 @@ enum {
 #else
 #define REVK_SETTINGS_HOSTNAME
 #endif
-#define REVK_SETTINGS_APPNAME
 #define REVK_SETTINGS_OTAHOST
 #define REVK_SETTINGS_OTADAYS
 #define REVK_SETTINGS_OTASTART
@@ -510,6 +511,7 @@ enum {
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
 #define REVK_SETTINGS_BLINK
+#define REVK_SETTINGS_WS2812RGB
 #else
 #define REVK_SETTINGS_BLINK
 #endif

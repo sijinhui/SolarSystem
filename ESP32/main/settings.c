@@ -25,7 +25,6 @@ revk_settings_t const revk_settings[]={
 #else
  {.type=REVK_SETTINGS_STRING,.name="hostname",.comment="Host name<br>(used in DHCP and MQTT)",.len=8,.ptr=&hostname,.malloc=1,.revk=1,.hide=1},
 #endif
- {.type=REVK_SETTINGS_STRING,.name="appname",.comment="Application name",.len=7,.dq=1,.def=quote(CONFIG_REVK_APPNAME),.ptr=&appname,.malloc=1,.revk=1,.hide=1},
  {.type=REVK_SETTINGS_STRING,.name="otahost",.comment="OTA hostname",.group=1,.len=7,.dot=3,.dq=1,.def=quote(CONFIG_REVK_OTAHOST),.ptr=&otahost,.malloc=1,.revk=1,.live=1},
  {.type=REVK_SETTINGS_UNSIGNED,.name="otadays",.comment="OTA auto load (days)",.group=1,.len=7,.dot=3,.dq=1,.def=quote(CONFIG_REVK_OTADAYS),.ptr=&otadays,.size=sizeof(uint8_t),.revk=1},
  {.type=REVK_SETTINGS_UNSIGNED,.name="otastart",.comment="OTA check after startup (min seconds)",.group=1,.len=8,.dot=3,.def="600",.ptr=&otastart,.size=sizeof(uint16_t),.revk=1},
@@ -42,7 +41,7 @@ revk_settings_t const revk_settings[]={
  {.type=REVK_SETTINGS_UNSIGNED,.name="usbuptime",.comment="USB  turns off after this many seconds",.len=9,.dq=1,.def=quote(CONFIG_REVK_USBUPTIME),.ptr=&usbuptime,.size=sizeof(uint16_t),.revk=1},
 #endif
 #ifdef  CONFIG_IDF_TARGET_ESP32S3
- {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="factorygpio",.comment="Factory reset GPIO (press 3 times)",.len=11,.dq=1,.def=quote(CONFIG_REVK_RESET),.ptr=&factorygpio,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1},
+ {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="factorygpio",.comment="Factory reset GPIO (press 3 times)",.len=11,.dq=1,.def=quote(CONFIG_REVK_GPIO_RESET),.ptr=&factorygpio,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1},
 #else
  {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="factorygpio",.comment="Factory reset GPIO (press 3 times)",.len=11,.ptr=&factorygpio,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1},
 #endif
@@ -59,6 +58,7 @@ revk_settings_t const revk_settings[]={
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
  {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="WS2812 LED",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1},
+ {.type=REVK_SETTINGS_BIT,.name="ws2812rgb",.comment="Reverse green and red on WS2812 LED",.len=9,.def="0",.bit=REVK_SETTINGS_BITFIELD_ws2812rgb,.revk=1},
 #else
  {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="R, G, B LED array (set all the same for WS2812 LED)",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1,.array=3},
 #endif
@@ -284,7 +284,6 @@ char* hostname=NULL;
 #else
 char* hostname=NULL;
 #endif
-char* appname=NULL;
 char* otahost=NULL;
 uint8_t otadays=0;
 uint16_t otastart=0;
@@ -507,4 +506,49 @@ uint8_t meshdied=0;
 uint16_t mqttdied=0;
 char* smsnumber=NULL;
 uint16_t timer1=0;
+#ifdef	CONFIG_REVK_SETTINGS_PASSWORD
+#endif
+#ifdef  CONFIG_MDNS_MAX_INTERFACES
+#else
+#endif
+#ifdef	CONFIG_REVK_WEB_BETA
+#endif
+#ifdef  CONFIG_IDF_TARGET_ESP32S3
+#endif
+#ifdef  CONFIG_IDF_TARGET_ESP32S3
+#else
+#endif
+#ifdef	CONFIG_REVK_BLINK_DEF
+#ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+#else
+#endif
+#endif
+#ifdef  CONFIG_REVK_APMODE
+#ifdef	CONFIG_REVK_APCONFIG
+#endif
+#endif
+#ifdef  CONFIG_REVK_MQTT
+#endif
+#if     defined(CONFIG_REVK_WIFI) || defined(CONFIG_REVK_MESH)
+#endif
+#ifndef	CONFIG_REVK_MESH
+#endif
+#ifdef	CONFIG_REVK_MESH
+#endif
+#define	AREAS	"ABCDEFGHIJKLMNOPQRSTUVWXYZZZZZZZ"
+#define	MAXOUTPUT	10
+#define	OUTPUT_FUNCS	"LDBE----"
+#define	OUTPUT_FUNC_L	0x80	// Lock release
+#define	OUTPUT_FUNC_D	0x40	// Deadlock release (this needs to be L>>1)
+#define	OUTPUT_FUNC_B	0x20	// Beep
+#define	OUTPUT_FUNC_E	0x10	// Error
+#define	MAXINPUT	16
+#define	INPUT_FUNCS	"EOLDMP--"
+#define	INPUT_FUNC_E	0x80		// Exit pressed
+#define	INPUT_FUNC_O	0x40		// Open door
+#define	INPUT_FUNC_L	0x20		// Lock unlocked
+#define	INPUT_FUNC_D	0x10		// Deadlock unlocked (This needs to be L>>1)
+#define	INPUT_FUNC_M	0x08		// Manual active
+#define	INPUT_FUNC_P	0x04		// Pull down (not really a function, but a rarely needed input flag)
+#define	MAX_MIX		5
 const char revk_settings_secret[]="✶✶✶✶✶✶✶✶";

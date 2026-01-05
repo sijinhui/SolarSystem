@@ -16,10 +16,10 @@ static uint8_t outputfuncs;     // Combined outputs of all
 static uint8_t outputfuncset;   // Logical state of output funcs
 static uint32_t report_next = 0;        // When to report output
 
-#ifdef	CONFIG_REVK_LED_STRIP
-led_strip_handle_t rgb = NULL;
+#ifdef	CONFIG_REVK_LED
+led_strip_t rgb = NULL;
 void
-led_set (int led, char c)
+led_set_colour (int led, char c)
 {
    if (!rgb || led > rgbs)
       return;
@@ -48,9 +48,9 @@ output_write (int p)
       gpio_hold_dis (outgpio[p].num);
       gpio_set_level (outgpio[p].num, outgpio[p].invert - v);
       gpio_hold_en (outgpio[p].num);
-#ifdef  CONFIG_REVK_LED_STRIP
+#ifdef  CONFIG_REVK_LED
       if (outrgb[p])
-         led_set (outrgb[p], v ? 'R' : 'G');
+         led_set_colour (outrgb[p], v ? 'R' : 'G');
 #endif
    }
 }
@@ -235,11 +235,11 @@ task (void *pvParameters)
             revk_gpio_set (blink[1], (colour >> 27) & 1);
             revk_gpio_set (blink[2], (colour >> 25) & 1);
          }
-#ifdef  CONFIG_REVK_LED_STRIP
-         else if(rgb)
+#ifdef  CONFIG_REVK_LED
+         else if (rgb)
          {
             revk_led (rgb, 0, 255, colour);
-            led_strip_refresh (rgb);
+            led_send ();
          }
 #endif
       }
@@ -289,31 +289,17 @@ output_boot (void)
       if (c.pin_bit_mask)
          REVK_ERR_CHECK (gpio_config (&c));
    }
-#ifdef  CONFIG_REVK_LED_STRIP
+#ifdef  CONFIG_REVK_LED
 #ifndef CONFIG_REVK_BLINK_LIB
    if (blink[0].set && blink[1].set && blink[0].num == blink[1].num)
    {
-      led_strip_config_t strip_config = {
-         .strip_gpio_num = blink[0].num,
-         .max_leds = rgbs + 1,  // The number of LEDs in the strip,
-         .led_pixel_format = LED_PIXEL_FORMAT_GRB,      // Pixel format of your LED strip
-         .led_model = LED_MODEL_WS2812, // LED strip model
-         .flags.invert_out = blink[0].invert,
-      };
-      led_strip_rmt_config_t rmt_config = {
-         .clk_src = RMT_CLK_SRC_DEFAULT,        // different clock source can lead to different power consumption
-         .resolution_hz = 10 * 1000 * 1000,     // 10MHz
-#ifdef  CONFIG_IDF_TARGET_ESP32S3
-         .flags.with_dma = true,
-#endif
-      };
-      REVK_ERR_CHECK (led_strip_new_rmt_device (&strip_config, &rmt_config, &rgb));
+      led_strip (&rgb, blink[0].num, blink[0].invert, rgbs + 1, 3, LED_GRB);
       for (int i = 0; i < MAXOUTPUT; i++)
          if (powerrgb[i])
-            led_set (powerrgb[i], powergpio[i].invert ? 'B' : 'M');
+            led_set_colour (powerrgb[i], powergpio[i].invert ? 'B' : 'M');
    } else
       for (int b = 0; b < 3; b++)
-         revk_gpio_output (blink[b],0);
+         revk_gpio_output (blink[b], 0);
 #endif
 #endif
 }

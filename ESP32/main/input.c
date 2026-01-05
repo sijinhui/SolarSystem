@@ -85,10 +85,10 @@ task (void *pvParameters)
    pvParameters = pvParameters;
    int poll = (inpoll ? : 1);
    static uint8_t input_hold[MAXINPUT] = { 0 };
-#ifdef  CONFIG_REVK_LED_STRIP
+#ifdef  CONFIG_REVK_LED
    for (int i = 0; i < MAXINPUT; i++)
       if (inrgb[i])
-         led_set (inrgb[i], ((1ULL << i) & input_raw) ? 'R' : 'G');
+         led_set_colour (inrgb[i], ((1ULL << i) & input_raw) ? 'R' : 'G');
 #endif
    // Scan inputs
    while (1)
@@ -124,9 +124,9 @@ task (void *pvParameters)
                   input_hold[i] -= poll;
                if (!input_hold[i])      // hold done
                {
-#ifdef  CONFIG_REVK_LED_STRIP
+#ifdef  CONFIG_REVK_LED
                   if (inrgb[i])
-                     led_set (inrgb[i], v ? 'R' : 'G');
+                     led_set_colour (inrgb[i], v ? 'R' : 'G');
 #endif
                   input_stable = ((input_stable & ~(1ULL << i)) | ((input_t) v << i));
                   if (v)

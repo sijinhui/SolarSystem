@@ -293,7 +293,7 @@ output_boot (void)
 #ifndef CONFIG_REVK_BLINK_LIB
    if (blink[0].set && blink[1].set && blink[0].num == blink[1].num)
    {
-      led_strip (&rgb, blink[0].num, blink[0].invert, rgbs + 1, 3, LED_GRB);
+      led_strip (&rgb, blink[0], rgbs + 1, 3, LED_GRB);
       for (int i = 0; i < MAXOUTPUT; i++)
          if (powerrgb[i])
             led_set_colour (powerrgb[i], powergpio[i].invert ? 'B' : 'M');

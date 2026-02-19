@@ -3,7 +3,7 @@
 	url = https://codeberg.org/RevK/AXL
 [submodule "Dataformat"]
 	path = Dataformat
-	url = https://github.com/revk/Dataformat
+	url = https://codeberg.org/RevK/Dataformat
 [submodule "websocket"]
 	path = websocket
 	url = https://codeberg.org/RevK/websocket

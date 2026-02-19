@@ -38,7 +38,7 @@
 	branch = main
 [submodule "xmlsql"]
 	path = xmlsql
-	url = https://github.com/revk/xmlsql
+	url = https://codeberg.org/RevK/xmlsql
 	branch = main
 [submodule "email"]
 	path = email

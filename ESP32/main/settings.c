@@ -22,6 +22,7 @@ revk_settings_t const revk_settings[]={
 #endif
 #ifdef  CONFIG_MDNS_MAX_INTERFACES
  {.type=REVK_SETTINGS_STRING,.name="hostname",.comment="Hostname[.local]<br>(used in DHCP and MQTT)",.len=8,.ptr=&hostname,.malloc=1,.revk=1,.hide=1},
+ {.type=REVK_SETTINGS_STRING,.name="instance",.comment="Descriptive name of host, default is hostname",.len=8,.ptr=&instance,.malloc=1,.revk=1,.hide=1},
 #else
  {.type=REVK_SETTINGS_STRING,.name="hostname",.comment="Host name<br>(used in DHCP and MQTT)",.len=8,.ptr=&hostname,.malloc=1,.revk=1,.hide=1},
 #endif
@@ -57,10 +58,18 @@ revk_settings_t const revk_settings[]={
  {.type=REVK_SETTINGS_BIT,.name="prefixhost",.comment="MQTT use (appname/)hostname/topic instead of topic/(appname/)hostname",.group=3,.len=10,.dot=6,.dq=1,.def=quote(CONFIG_REVK_PREFIXHOST),.bit=REVK_SETTINGS_BITFIELD_prefixhost,.revk=1},
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+#ifdef	CONFIG_REVK_LED_TEST
+ {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="WS2812 LED, and loop test",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1,.array=2},
+#else
  {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="WS2812 LED",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1},
+#endif
  {.type=REVK_SETTINGS_BIT,.name="ws2812rgb",.comment="Reverse green and red on WS2812 LED",.len=9,.def="0",.bit=REVK_SETTINGS_BITFIELD_ws2812rgb,.revk=1},
 #else
- {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="R, G, B LED array (set all the same for WS2812 LED)",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1,.array=3},
+#ifdef	CONFIG_REVK_LED_TEST
+ {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="R, G, B LED array (for WS2818, set first two the same, third can be loop test)",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1,.array=3},
+#else
+ {.type=REVK_SETTINGS_UNSIGNED,.gpio=1,.name="blink",.comment="R, G, B LED array (for WS2812, set first two the same)",.len=5,.dq=1,.def=quote(CONFIG_REVK_BLINK),.ptr=&blink,.size=sizeof(revk_gpio_t),.fix=1,.set=1,.flags="- ~↓↕⇕",.revk=1,.array=3},
+#endif
 #endif
 #endif
 #ifdef  CONFIG_REVK_APMODE
@@ -281,6 +290,7 @@ char* password=NULL;
 #endif
 #ifdef  CONFIG_MDNS_MAX_INTERFACES
 char* hostname=NULL;
+char* instance=NULL;
 #else
 char* hostname=NULL;
 #endif
@@ -311,9 +321,17 @@ char* topicerror=NULL;
 char* topicha=NULL;
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+#ifdef	CONFIG_REVK_LED_TEST
+revk_gpio_t blink[2]={0};
+#else
 revk_gpio_t blink={0};
+#endif
+#else
+#ifdef	CONFIG_REVK_LED_TEST
+revk_gpio_t blink[3]={0};
 #else
 revk_gpio_t blink[3]={0};
+#endif
 #endif
 #endif
 #ifdef  CONFIG_REVK_APMODE
@@ -520,7 +538,13 @@ uint16_t timer1=0;
 #endif
 #ifdef	CONFIG_REVK_BLINK_DEF
 #ifdef	CONFIG_REVK_BLINK_WS2812_DEF
+#ifdef	CONFIG_REVK_LED_TEST
 #else
+#endif
+#else
+#ifdef	CONFIG_REVK_LED_TEST
+#else
+#endif
 #endif
 #endif
 #ifdef  CONFIG_REVK_APMODE

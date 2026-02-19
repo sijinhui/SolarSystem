@@ -42,7 +42,7 @@
 	branch = main
 [submodule "email"]
 	path = email
-	url = https://github.com/revk/email
+	url = https://codeberg.org/RevK/email
 	branch = main
 [submodule "PCB/PCBCase"]
 	path = PCB/PCBCase

@@ -28,7 +28,7 @@
 	branch = main
 [submodule "AJL"]
 	path = AJL
-	url = https://github.com/revk/AJL
+	url = https://codeberg.org/RevK/AJK
 [submodule "SQLlib"]
 	path = SQLlib
 	url = https://codeberg.org/RevK/SQLlib

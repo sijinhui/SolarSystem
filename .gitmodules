@@ -6,7 +6,7 @@
 	url = https://github.com/revk/Dataformat
 [submodule "websocket"]
 	path = websocket
-	url = https://github.com/revk/websocket
+	url = https://codeberg.org/RevK/websocket
 [submodule "ESP32/components/DESFireAES"]
 	path = ESP32/components/DESFireAES
 	url = https://github.com/revk/DESFireAES

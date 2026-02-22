@@ -24,7 +24,7 @@
 	url = https://github.com/revk/ESP32-GalaxyBus
 [submodule "ESP32/ftdizap"]
 	path = ESP32/ftdizap
-	url = https://github.com/revk/ftdizap
+	url = https://codeberg.org/RevK/ftdizap
 	branch = main
 [submodule "AJL"]
 	path = AJL

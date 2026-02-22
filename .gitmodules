@@ -34,7 +34,7 @@
 	url = https://codeberg.org/RevK/SQLlib
 [submodule "login"]
 	path = login
-	url = https://github.com/revk/login
+	url = https://codeberg.org/RevK/login
 	branch = main
 [submodule "xmlsql"]
 	path = xmlsql

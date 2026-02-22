@@ -15,7 +15,7 @@
 	url = https://github.com/revk/DESFireAES
 [submodule "ESP32/components/ESP32-PN532"]
 	path = ESP32/components/ESP32-PN532
-	url = https://github.com/revk/ESP32-PN532
+	url = https://codeberg.org/RevK/ESP32-PN532
 [submodule "ESP32/components/ESP32-RevK"]
 	path = ESP32/components/ESP32-RevK
 	url = https://codeberg.org/RevK/ESP32-RevK

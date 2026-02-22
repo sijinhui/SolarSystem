@@ -12,7 +12,7 @@
 	url = https://github.com/revk/DESFireAES
 [submodule "DESFireAES"]
 	path = DESFireAES
-	url = https://github.com/revk/DESFireAES
+	url = https://codeberg.org/RevK/DESFireAES
 [submodule "ESP32/components/ESP32-PN532"]
 	path = ESP32/components/ESP32-PN532
 	url = https://codeberg.org/RevK/ESP32-PN532
@@ -21,7 +21,7 @@
 	url = https://codeberg.org/RevK/ESP32-RevK
 [submodule "ESP32/components/ESP32-GalaxyBus"]
 	path = ESP32/components/ESP32-GalaxyBus
-	url = https://github.com/revk/ESP32-GalaxyBus
+	url = https://codeberg.org/RevK/ESP32-GalaxyBus
 [submodule "ESP32/ftdizap"]
 	path = ESP32/ftdizap
 	url = https://codeberg.org/RevK/ftdizap

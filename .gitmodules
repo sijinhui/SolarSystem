@@ -9,7 +9,7 @@
 	url = https://codeberg.org/RevK/websocket
 [submodule "ESP32/components/DESFireAES"]
 	path = ESP32/components/DESFireAES
-	url = https://github.com/revk/DESFireAES
+	url = https://codeberg.org/RevK/DESFireAES
 [submodule "DESFireAES"]
 	path = DESFireAES
 	url = https://codeberg.org/RevK/DESFireAES

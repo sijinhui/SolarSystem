@@ -1,6 +1,6 @@
 // Generated case design for Generic/Generic.kicad_pcb
 // By https://github.com/revk/PCBCase
-// Generated 2026-02-17 13:43:35
+// Generated 2026-03-06 12:19:55
 // title:	PCB-GENERIC-GPS
 // rev:	5
 // company:	Adrian Kennard Andrews & Arnold Ltd
@@ -32,7 +32,7 @@ datey=0.000000;
 datet=0.500000;
 dateh=3.000000;
 datea=0;
-date="2026-02-17";
+date="2026-02-22";
 datef="OCRB";
 logox=0.000000;
 logoy=0.000000;
@@ -60,174 +60,174 @@ module outline(h=pcbthickness,r=0){linear_extrude(height=h)offset(r=r)polygon(po
 
 module pcb(h=pcbthickness,r=0){linear_extrude(height=h)offset(r=r)polygon(points=[[7.100000,15.100000],[-7.100000,15.100000],[-7.100000,8.100000],[-7.126795,8.000000],[-7.200000,7.926795],[-7.300000,7.900000],[-12.000000,7.900000],[-12.585271,7.842356],[-13.148050,7.671638],[-13.666710,7.394408],[-14.121320,7.021320],[-14.494408,6.566710],[-14.771638,6.048050],[-14.942356,5.485271],[-15.000000,4.900000],[-15.000000,-15.100000],[15.000000,-15.100000],[15.000000,4.900000],[14.942356,5.485271],[14.771638,6.048050],[14.494408,6.566710],[14.121320,7.021320],[13.666710,7.394408],[13.148050,7.671638],[12.585271,7.842356],[12.000000,7.900000],[7.300000,7.900000],[7.200000,7.926795],[7.126795,8.000000],[7.100000,8.100000]],paths=[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]]);}
 module PCB1(){translate([0.000000,-10.800000,0.800000])children();}
-module part_PCB1(part=true,hole=false,block=false)
+module part_PCB1(part=true,hole=false,block=false,punch=false)
 {
 };
 module Logo2(){translate([-10.050000,0.125000,0.800000])children();}
-module part_Logo2(part=true,hole=false,block=false)
+module part_Logo2(part=true,hole=false,block=false,punch=false)
 {
 };
 // Parts to go on PCB (top)
-module parts_top(part=false,hole=false,block=false){
-part_PCB1(part,hole,block);
-part_Logo2(part,hole,block);
+module parts_top(part=false,hole=false,block=false,punch=false){
+part_PCB1(part,hole,block,punch);
+part_Logo2(part,hole,block,punch);
 }
 
 parts_top=0;
 module U4(){translate([4.200000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_U4(part=true,hole=false,block=false)
+module part_U4(part=true,hole=false,block=false,punch=false)
 {
-translate([4.200000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m0(part,hole,block,casebottom); // RevK:SOT-23-6-MD8942 SOT-23-6
+translate([4.200000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m0(part,hole,block,punch,casebottom); // RevK:SOT-23-6-MD8942 SOT-23-6
 };
 module L2(){translate([4.200000,-12.500000,0.000000])rotate([180,0,0])children();}
-module part_L2(part=true,hole=false,block=false)
+module part_L2(part=true,hole=false,block=false,punch=false)
 {
-translate([4.200000,-12.500000,0.000000])rotate([180,0,0])rotate([-0.000000,-0.000000,-90.000000])m1(part,hole,block,casebottom); // RevK:L_4x4_ TYA4020
+translate([4.200000,-12.500000,0.000000])rotate([180,0,0])rotate([-0.000000,-0.000000,-90.000000])m1(part,hole,block,punch,casebottom); // RevK:L_4x4_ TYA4020
 };
 module V2(){translate([0.000000,15.095000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_V2(part=true,hole=false,block=false)
+module part_V2(part=true,hole=false,block=false,punch=false)
 {
 };
 module R3(){translate([5.700000,-0.200000,0.000000])rotate([180,0,0])children();}
-module part_R3(part=true,hole=false,block=false)
+module part_R3(part=true,hole=false,block=false,punch=false)
 {
-translate([5.700000,-0.200000,0.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([5.700000,-0.200000,0.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module C7(){translate([4.200000,-9.900000,0.000000])rotate([180,0,0])children();}
-module part_C7(part=true,hole=false,block=false)
+module part_C7(part=true,hole=false,block=false,punch=false)
 {
-translate([4.200000,-9.900000,0.000000])rotate([180,0,0])m3(part,hole,block,casebottom); // RevK:C_0603_ C_0603_1608Metric
+translate([4.200000,-9.900000,0.000000])rotate([180,0,0])m3(part,hole,block,punch,casebottom); // RevK:C_0603_ C_0603_1608Metric
 };
 module R13(){translate([6.000000,-6.000000,0.000000])rotate([180,0,0])children();}
-module part_R13(part=true,hole=false,block=false)
+module part_R13(part=true,hole=false,block=false,punch=false)
 {
-translate([6.000000,-6.000000,0.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([6.000000,-6.000000,0.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module J2(){translate([9.200000,1.400000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])children();}
-module part_J2(part=true,hole=false,block=false)
+module part_J2(part=true,hole=false,block=false,punch=false)
 {
-translate([9.200000,1.400000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])translate([0.000000,-2.400000,0.000000])rotate([90.000000,-0.000000,-0.000000])m4(part,hole,block,casebottom); // RevK:USB-C-Socket-H CSP-USC16-TR
+translate([9.200000,1.400000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])translate([0.000000,-2.400000,0.000000])rotate([90.000000,-0.000000,-0.000000])m4(part,hole,block,punch,casebottom); // RevK:USB-C-Socket-H CSP-USC16-TR
 };
 module D4(){translate([-1.250000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_D4(part=true,hole=false,block=false)
+module part_D4(part=true,hole=false,block=false,punch=false)
 {
-translate([-1.250000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m5(part,hole,block,casebottom); // D4 (back)
+translate([-1.250000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m5(part,hole,block,punch,casebottom); // D4 (back)
 };
 module D1(){translate([5.700000,-3.200000,0.000000])rotate([0,0,90.000000])rotate([180,0,0])children();}
-module part_D1(part=true,hole=false,block=false)
+module part_D1(part=true,hole=false,block=false,punch=false)
 {
 // Missing model D1.1 D_1206_3216Metric (back)
 };
 module V1(){translate([0.000000,-15.100000,0.000000])rotate([180,0,0])children();}
-module part_V1(part=true,hole=false,block=false)
+module part_V1(part=true,hole=false,block=false,punch=false)
 {
 };
 module C5(){translate([6.700000,-9.200000,0.000000])rotate([0,0,90.000000])rotate([180,0,0])children();}
-module part_C5(part=true,hole=false,block=false)
+module part_C5(part=true,hole=false,block=false,punch=false)
 {
-translate([6.700000,-9.200000,0.000000])rotate([0,0,90.000000])rotate([180,0,0])m3(part,hole,block,casebottom); // RevK:C_0603_ C_0603_1608Metric
+translate([6.700000,-9.200000,0.000000])rotate([0,0,90.000000])rotate([180,0,0])m3(part,hole,block,punch,casebottom); // RevK:C_0603_ C_0603_1608Metric
 };
 module Q1(){translate([9.437500,-5.350000,0.000000])rotate([180,0,0])children();}
-module part_Q1(part=true,hole=false,block=false)
+module part_Q1(part=true,hole=false,block=false,punch=false)
 {
-translate([9.437500,-5.350000,0.000000])rotate([180,0,0])m6(part,hole,block,casebottom); // Q1 (back)
+translate([9.437500,-5.350000,0.000000])rotate([180,0,0])m6(part,hole,block,punch,casebottom); // Q1 (back)
 };
 module J5(){translate([-6.900000,-10.350000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_J5(part=true,hole=false,block=false)
+module part_J5(part=true,hole=false,block=false,punch=false)
 {
 };
 module R12(){translate([2.400000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_R12(part=true,hole=false,block=false)
+module part_R12(part=true,hole=false,block=false,punch=false)
 {
-translate([2.400000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([2.400000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module U1(){translate([-6.900000,-7.000000,0.000000])rotate([180,0,0])children();}
-module part_U1(part=true,hole=false,block=false)
+module part_U1(part=true,hole=false,block=false,punch=false)
 {
-translate([-6.900000,-7.000000,0.000000])rotate([180,0,0])m7(part,hole,block,casebottom); // U1 (back)
+translate([-6.900000,-7.000000,0.000000])rotate([180,0,0])m7(part,hole,block,punch,casebottom); // U1 (back)
 };
 module D5(){translate([3.750000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_D5(part=true,hole=false,block=false)
+module part_D5(part=true,hole=false,block=false,punch=false)
 {
-translate([3.750000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m5(part,hole,block,casebottom); // D4 (back)
+translate([3.750000,5.200000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m5(part,hole,block,punch,casebottom); // D4 (back)
 };
 module C2(){translate([1.250000,-13.550000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])children();}
-module part_C2(part=true,hole=false,block=false)
+module part_C2(part=true,hole=false,block=false,punch=false)
 {
-translate([1.250000,-13.550000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m8(part,hole,block,casebottom); // RevK:C_0402 C_0402_1005Metric
+translate([1.250000,-13.550000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m8(part,hole,block,punch,casebottom); // RevK:C_0402 C_0402_1005Metric
 };
 module R4(){translate([1.250000,-11.650000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])children();}
-module part_R4(part=true,hole=false,block=false)
+module part_R4(part=true,hole=false,block=false,punch=false)
 {
-translate([1.250000,-11.650000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([1.250000,-11.650000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module D2(){translate([-12.750000,5.450000,0.000000])rotate([0,0,135.000000])rotate([180,0,0])children();}
-module part_D2(part=true,hole=false,block=false)
+module part_D2(part=true,hole=false,block=false,punch=false)
 {
-translate([-12.750000,5.450000,0.000000])rotate([0,0,135.000000])rotate([180,0,0])m9(part,hole,block,casebottom); // D2 (back)
+translate([-12.750000,5.450000,0.000000])rotate([0,0,135.000000])rotate([180,0,0])m9(part,hole,block,punch,casebottom); // D2 (back)
 };
 module R8(){translate([4.200000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_R8(part=true,hole=false,block=false)
+module part_R8(part=true,hole=false,block=false,punch=false)
 {
-translate([4.200000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([4.200000,-6.000000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module C1(){translate([3.350000,3.550000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_C1(part=true,hole=false,block=false)
+module part_C1(part=true,hole=false,block=false,punch=false)
 {
-translate([3.350000,3.550000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m8(part,hole,block,casebottom); // RevK:C_0402 C_0402_1005Metric
+translate([3.350000,3.550000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m8(part,hole,block,punch,casebottom); // RevK:C_0402 C_0402_1005Metric
 };
 module R2(){translate([5.700000,2.800000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_R2(part=true,hole=false,block=false)
+module part_R2(part=true,hole=false,block=false,punch=false)
 {
-translate([5.700000,2.800000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,casebottom); // RevK:R_0402 R_0402_1005Metric
+translate([5.700000,2.800000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m2(part,hole,block,punch,casebottom); // RevK:R_0402 R_0402_1005Metric
 };
 module J1(){translate([11.000000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])children();}
-module part_J1(part=true,hole=false,block=false)
+module part_J1(part=true,hole=false,block=false,punch=false)
 {
-translate([11.000000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m10(part,hole,block,casebottom,2); // J1 (back)
+translate([11.000000,-7.900000,0.000000])rotate([0,0,180.000000])rotate([180,0,0])m10(part,hole,block,punch,casebottom,2); // J1 (back)
 };
 module J4(){translate([0.000000,7.857500,0.000000])rotate([180,0,0])children();}
-module part_J4(part=true,hole=false,block=false)
+module part_J4(part=true,hole=false,block=false,punch=false)
 {
-translate([0.000000,7.857500,0.000000])rotate([180,0,0])m10(part,hole,block,casebottom,5); // J1 (back)
+translate([0.000000,7.857500,0.000000])rotate([180,0,0])m10(part,hole,block,punch,casebottom,5); // J1 (back)
 };
 module C6(){translate([1.700000,-9.200000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])children();}
-module part_C6(part=true,hole=false,block=false)
+module part_C6(part=true,hole=false,block=false,punch=false)
 {
-translate([1.700000,-9.200000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m3(part,hole,block,casebottom); // RevK:C_0603_ C_0603_1608Metric
+translate([1.700000,-9.200000,0.000000])rotate([0,0,-90.000000])rotate([180,0,0])m3(part,hole,block,punch,casebottom); // RevK:C_0603_ C_0603_1608Metric
 };
 // Parts to go on PCB (bottom)
-module parts_bottom(part=false,hole=false,block=false){
-part_U4(part,hole,block);
-part_L2(part,hole,block);
-part_V2(part,hole,block);
-part_R3(part,hole,block);
-part_C7(part,hole,block);
-part_R13(part,hole,block);
-part_J2(part,hole,block);
-part_D4(part,hole,block);
-part_D1(part,hole,block);
-part_V1(part,hole,block);
-part_C5(part,hole,block);
-part_Q1(part,hole,block);
-part_J5(part,hole,block);
-part_R12(part,hole,block);
-part_U1(part,hole,block);
-part_D5(part,hole,block);
-part_C2(part,hole,block);
-part_R4(part,hole,block);
-part_D2(part,hole,block);
-part_R8(part,hole,block);
-part_C1(part,hole,block);
-part_R2(part,hole,block);
-part_J1(part,hole,block);
-part_J4(part,hole,block);
-part_C6(part,hole,block);
+module parts_bottom(part=false,hole=false,block=false,punch=false){
+part_U4(part,hole,block,punch);
+part_L2(part,hole,block,punch);
+part_V2(part,hole,block,punch);
+part_R3(part,hole,block,punch);
+part_C7(part,hole,block,punch);
+part_R13(part,hole,block,punch);
+part_J2(part,hole,block,punch);
+part_D4(part,hole,block,punch);
+part_D1(part,hole,block,punch);
+part_V1(part,hole,block,punch);
+part_C5(part,hole,block,punch);
+part_Q1(part,hole,block,punch);
+part_J5(part,hole,block,punch);
+part_R12(part,hole,block,punch);
+part_U1(part,hole,block,punch);
+part_D5(part,hole,block,punch);
+part_C2(part,hole,block,punch);
+part_R4(part,hole,block,punch);
+part_D2(part,hole,block,punch);
+part_R8(part,hole,block,punch);
+part_C1(part,hole,block,punch);
+part_R2(part,hole,block,punch);
+part_J1(part,hole,block,punch);
+part_J4(part,hole,block,punch);
+part_C6(part,hole,block,punch);
 }
 
 parts_bottom=21;
 module b(cx,cy,z,w,l,h){translate([cx-w/2,cy-l/2,z])cube([w,l,h]);}
-module m0(part=false,hole=false,block=false,height)
+module m0(part=false,hole=false,block=false,punch=false,height)
 { // RevK:SOT-23-6-MD8942 SOT-23-6
 // SOT-23-6
 if(part)
@@ -237,7 +237,7 @@ if(part)
 }
 }
 
-module m1(part=false,hole=false,block=false,height)
+module m1(part=false,hole=false,block=false,punch=false,height)
 { // RevK:L_4x4_ TYA4020
 // 4x4 Inductor
 if(part)
@@ -246,7 +246,7 @@ if(part)
 }
 }
 
-module m2(part=false,hole=false,block=false,height)
+module m2(part=false,hole=false,block=false,punch=false,height)
 { // RevK:R_0402 R_0402_1005Metric
 // 0402 Resistor
 if(part)
@@ -256,7 +256,7 @@ if(part)
 }
 }
 
-module m3(part=false,hole=false,block=false,height)
+module m3(part=false,hole=false,block=false,punch=false,height)
 { // RevK:C_0603_ C_0603_1608Metric
 // 0603 Capacitor
 if(part)
@@ -266,7 +266,7 @@ if(part)
 }
 }
 
-module m4(part=false,hole=false,block=false,height)
+module m4(part=false,hole=false,block=false,punch=false,height)
 { // RevK:USB-C-Socket-H CSP-USC16-TR
 // USB connector
 rotate([-90,0,0])translate([0,1.9,0])
@@ -312,7 +312,7 @@ rotate([-90,0,0])translate([0,1.9,0])
 }
 }
 
-module m5(part=false,hole=false,block=false,height)
+module m5(part=false,hole=false,block=false,punch=false,height)
 { // D4
 if(part)
 {
@@ -321,7 +321,7 @@ if(part)
 }
 }
 
-module m6(part=false,hole=false,block=false,height)
+module m6(part=false,hole=false,block=false,punch=false,height)
 { // Q1
 // SOT-23
 if(part)
@@ -333,7 +333,7 @@ if(part)
 }
 }
 
-module m7(part=false,hole=false,block=false,height)
+module m7(part=false,hole=false,block=false,punch=false,height)
 { // U1
 // ESP32-S3-MINI-1
 translate([-15.4/2,-15.45/2,0])
@@ -347,7 +347,7 @@ translate([-15.4/2,-15.45/2,0])
 }
 }
 
-module m8(part=false,hole=false,block=false,height)
+module m8(part=false,hole=false,block=false,punch=false,height)
 { // RevK:C_0402 C_0402_1005Metric
 // 0402 Capacitor
 if(part)
@@ -357,7 +357,7 @@ if(part)
 }
 }
 
-module m9(part=false,hole=false,block=false,height)
+module m9(part=false,hole=false,block=false,punch=false,height)
 { // D2
 // 1x1mm LED
 if(part)
@@ -382,7 +382,7 @@ if(block)
 }
 }
 
-module m10(part=false,hole=false,block=false,height,N=0)
+module m10(part=false,hole=false,block=false,punch=false,height,N=0)
 { // J1
 // PTSM socket
 if(part)
@@ -432,8 +432,8 @@ module preview()
 	pcb();
 	color("#0f0")parts_top(part=true);
 	color("#0f0")parts_bottom(part=true);
-	color("#f00")parts_top(hole=true);
-	color("#f00")parts_bottom(hole=true);
+	color("#f00")parts_top(hole=true,punch=true);
+	color("#f00")parts_bottom(hole=true,punch=true);
 	color("#00f8")parts_top(block=true);
 	color("#00f8")parts_bottom(block=true);
 }
@@ -553,7 +553,7 @@ module top_side_hole()
 	{
 		intersection()
 		{
-			parts_top(hole=true);
+			parts_top(hole=true,punch=true);
 			case_wall();
 		}
 		translate([0,0,-casebottom])pcb_hulled(height,casewall);
@@ -566,7 +566,7 @@ module bottom_side_hole()
 	{
 		intersection()
 		{
-			parts_bottom(hole=true);
+			parts_bottom(hole=true,punch=true);
 			case_wall();
 		}
 		translate([0,0,edge-casebottom])pcb_hulled(height-edge*2,casewall);
@@ -579,8 +579,8 @@ module parts_space()
 	{
 		union()
 		{
-			parts_top(part=true,hole=true);
-			parts_bottom(part=true,hole=true);
+			parts_top(part=true,hole=true,punch=true);
+			parts_bottom(part=true,hole=true,punch=true);
 		}
 		sphere(r=margin,$fn=6);
 	}

@@ -1,4 +1,5 @@
 all:	png stl
+	git lfs prune
 
 stl:	AccessWAGO/AccessT.stl Access/AccessT.stl Generic/GenericT.stl Bell/BellT.stl Output/OutputT.stl AccessWAGO/AccessB.stl Access/AccessB.stl Generic/GenericB.stl Bell/BellB.stl Output/OutputB.stl
 

@@ -11,8 +11,8 @@ bit	door.debug
 bit	door.exitarm
 bit	door.exitdisarm
 bit	door.catch
-s	fallback		.array=10
-s	blacklist		.array=10
+s	fallback		.array=10 .live
+s	blacklist		.array=10 .live
 s	door.iotopen
 s	door.iotdead
 s	door.iotundead

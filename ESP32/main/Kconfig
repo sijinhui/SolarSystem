@@ -6,4 +6,11 @@ menu "SS"
         help
                 Set 0-8 for 9600 to 1288000 bps
 
+        config SS_BUILD_SUFFIX_OCT
+        bool "Octal PSRAM build"
+        depends on IDF_TARGET_ESP32S3
+        default n
+        help
+                Build for ESP32-S3 with octal PSRAM (N16R8 etc) - don't set this manually - it is set by Makefile (make s3oct)
+
 endmenu

@@ -20,7 +20,21 @@ set:	wroom solo pico s3
 
 s3:
 	components/ESP32-RevK/setbuildsuffix -S3-MINI-N4-R2
+	@make psramquad
 	@make
+
+# ESP32-S3 with octal PSRAM (e.g. ESP32-S3-DevKitC-1 N16R8 / WROOM-1 N16R8), GPIO33-37 are used by PSRAM
+# Uses the 4MB partition layout (works on 16MB flash), suffix -S3-N4-R2-OCT
+s3oct:
+	components/ESP32-RevK/setbuildsuffix -S3-N4-R2-OCT
+	@make psramoct
+	@make
+
+psramquad:
+	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_OCT=y/# CONFIG_SPIRAM_MODE_OCT is not set/' -e 's/^# CONFIG_SPIRAM_MODE_QUAD is not set/CONFIG_SPIRAM_MODE_QUAD=y/' sdkconfig && rm -f sdkconfig.bak
+
+psramoct:
+	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_QUAD=y/# CONFIG_SPIRAM_MODE_QUAD is not set/' -e 's/^# CONFIG_SPIRAM_MODE_OCT is not set/CONFIG_SPIRAM_MODE_OCT=y/' sdkconfig && rm -f sdkconfig.bak
 
 pico:
 	components/ESP32-RevK/setbuildsuffix -S1-PICO

@@ -39,4 +39,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: TEST-ONLY-throwaway-key-${{ matrix.variant }}
-          path: www/SS-*.bin
+          path: |
+            www/SS-*.bin
+            ESP32/build/SS-unsigned.bin
+            ESP32/build/bootloader/bootloader.bin
+            ESP32/build/partition_table/partition-table.bin
+            ESP32/build/ota_data_initial.bin
+            ESP32/build/flasher_args.json

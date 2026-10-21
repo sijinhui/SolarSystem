@@ -7,14 +7,14 @@ setenv days "sun mon tue wed thu fri sat"
 
 if($?DELETE) then
 	if(! $?SURE) then
-		setenv MSG "Are you sure?"
+		setenv MSG "确定吗？请勾选删除按钮旁的复选框确认"
 		goto edit
 	endif
 	can --redirect --access="$access" admin
 	if($status) exit 0
 	setenv C `sql -c "$DB" 'DELETE FROM access WHERE access=$access'`
 	if("$C" == "" || "$C" == "0") then
-                setenv MSG "Cannot delete as in use"
+                setenv MSG "正在使用中，无法删除"
                 goto done
         endif
         redirect editaccess.cgi
@@ -45,21 +45,21 @@ endif
 if(! $?PATH_INFO) then
 list:
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<h1>🔐 Manage access classes</h1>
+<h1>🔐 权限组管理</h1>
 <table style='white-space:nowrap'>
-<tr><th>Access</th><th>Notes</th><th>Expiry</th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Enter</th><th>Arm</th><th>Strong arm</th><th>Disarm</th><th>Prop</th></tr>
+<tr><th>权限组</th><th>备注</th><th>有效期</th><th>周日</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>进门</th><th>布防</th><th>强制布防</th><th>撤防</th><th>撑门</th></tr>
 <sql table=access where="site=$USER_SITE">
 <tr>
-<td><output name=accessname missing="Unnamed" blank="Unnanmed" href="editaccess.cgi/$access"></td>
+<td><output name=accessname missing="未命名" blank="未命名" href="editaccess.cgi/$access"></td>
 <td>
-<if override=true><b>OVERRIDE</b></if>
-<if armlate=true>Late arm allowed</if>
-<if clock=true>Time override if no clock</if>
-<if log=true>Fob log</if>
-<if count=true>Fob count</if>
-<if commit=true>Fob commit</if>
+<if override=true><b>无条件开门</b></if>
+<if armlate=true>允许非工作时间布防</if>
+<if clock=true>无时钟时忽略时段</if>
+<if log=true>门卡记录日志</if>
+<if count=true>门卡计数</if>
+<if commit=true>门卡提交</if>
 </td>
-<td><if expiry=0>No auto expiry</if><if else><output name=expiry> day<if not expiry=1>s</if> auto expiry</if></td>
+<td><if expiry=0>不自动过期</if><if else><output name=expiry> 天后自动过期</if></td>
 <for space day="$days">
 <td><output type="%H:%M" name=${day}from>-<output name=${day}to type=%H:%M></td>
 </for>
@@ -71,7 +71,7 @@ xmlsql -C -d "$DB" head.html - foot.html << 'END'
 </tr>
 </sql>
 </table>
-<p><a href="/editaccess.cgi/0">New access</p></p>
+<p><a href="/editaccess.cgi/0">新建权限组</a></p>
 'END'
 exit 0
 endif
@@ -79,27 +79,27 @@ endif
 setenv access "$PATH_INFO:t"
 edit:
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<h1>Access</h1>
+<h1>权限组</h1>
 <form method=post action=/editaccess.cgi>
 <sql table=access key=access><input name=access type=hidden>
 <table>
-<tr><td>Name</td><td><input name=accessname size=40 autofocus></td></tr>
-<tr><td><input type=checkbox id=clock name=clock value=true></td><td><label for=clock>Ignore time restrictions if clock not set.</label></td></tr>
-<tr><td><input type=checkbox id=log name=log value=true></td><td><label for=log>Try to log access to fob.</label></td></tr>
-<tr><td><input type=checkbox id=count name=count value=true></td><td><label for=count>Try to count access on fob.</label></td></tr>
-<tr><td><input type=checkbox id=commit name=commit value=true></td><td><label for=commit>Commit changes (log/count) before allowing access (slower).</label></td></tr>
-<tr><td><input type=checkbox id=armlate name=armlate value=true></td><td><label for=armlate>Allow arming out of hours.</label></td></tr>
-<IF ADMINORGANISATION><tr><td><input type=checkbox id=override name=override value=true></td><td><label for=override>Open door in all cases.</label></td></tr></if>
-<tr><td>Auto expire</td><td><input name=expiry size=3>Days</td></tr>
+<tr><td>名称</td><td><input name=accessname size=40 autofocus></td></tr>
+<tr><td><input type=checkbox id=clock name=clock value=true></td><td><label for=clock>设备时钟未校准时忽略时段限制。</label></td></tr>
+<tr><td><input type=checkbox id=log name=log value=true></td><td><label for=log>尝试将通行记录写入门卡。</label></td></tr>
+<tr><td><input type=checkbox id=count name=count value=true></td><td><label for=count>尝试在门卡上计数通行次数。</label></td></tr>
+<tr><td><input type=checkbox id=commit name=commit value=true></td><td><label for=commit>先提交门卡写入（日志/计数）再放行（较慢）。</label></td></tr>
+<tr><td><input type=checkbox id=armlate name=armlate value=true></td><td><label for=armlate>允许在非工作时间布防。</label></td></tr>
+<IF ADMINORGANISATION><tr><td><input type=checkbox id=override name=override value=true></td><td><label for=override>任何情况下都开门。</label></td></tr></if>
+<tr><td>自动过期</td><td><input name=expiry size=3> 天</td></tr>
 <for space day="$days">
-<tr><td><output name=day sun=Sunday mon=Monday tue=Tuesday wed=Wednesday thu=Thursday fri=Friday sat=Saturday></td><td><input name="${day}from" type=time>-<input name="${day}to" type=time></td></tr>
+<tr><td><output name=day sun=周日 mon=周一 tue=周二 wed=周三 thu=周四 fri=周五 sat=周六></td><td><input name="${day}from" type=time>-<input name="${day}to" type=time></td></tr>
 </for>
 </table>
 <table>
 <set tags="enter arm strong disarm prop">
 <tr><th></th>
-<for SPACE T="$tags"><th><output name=T></th></for>
-<th>Areas</th>
+<for SPACE T="$tags"><th><output name=T enter="进门" arm="布防" strong="强制布防" disarm="撤防" prop="撑门"></th></for>
+<th>防区</th>
 </tr>
 <sql table=area where="site=$USER_SITE">
 <tr>
@@ -110,7 +110,7 @@ xmlsql -C -d "$DB" head.html - foot.html << 'END'
 </sql>
 </table>
 
-<input type=submit value="Update"><if ADMINORGANISATION><input type=submit name=DELETE Value="Delete"><input name=SURE type=checkbox></if>
+<input type=submit value="保存"><if ADMINORGANISATION><input type=submit name=DELETE Value="删除"><input name=SURE type=checkbox title='勾选以确认删除'></if>
 </sql>
 </form>
 'END'

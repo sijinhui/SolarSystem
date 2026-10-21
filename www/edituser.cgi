@@ -11,20 +11,20 @@ if($?email) then # save
 	setenv was `sql "$DB" 'SELECT email FROM user WHERE user=$user'`
 	if("$email" != "$was") then
 		setenv LINK `weblink --make="$email"."$user"`
-		email --subject="Change of email address" --to="$email" --name="$SERVER_NAME" --from=noreply@"$SERVER_NAME" << END
-You have asked to change your email address from $was.
+		email --subject="修改邮箱地址" --to="$email" --name="$SERVER_NAME" --from=noreply@"$SERVER_NAME" << END
+您申请将邮箱地址从 $was 修改为本邮箱。
 
-To confirm this change, click this link.
+请点击以下链接确认修改：
 
 ${ENVCGI_SERVER}changeemail.cgi?$LINK
 END
-		email --subject="Change of email address" --to="$was" --name="$SERVER_NAME" --from=noreply@"$SERVER_NAME" << END
-You have asked to changed your email addess to $email.
+		email --subject="修改邮箱地址" --to="$was" --name="$SERVER_NAME" --from=noreply@"$SERVER_NAME" << END
+您申请将邮箱地址修改为 $email。
 
-You have been sent a link to confirm the change.
-Check your email for that account and click the link.
+确认链接已发送到新邮箱，
+请登录该邮箱并点击链接完成修改。
 END
-		redirect / "An email address has been sent to $email, please check and follow link."
+		redirect / "确认邮件已发送至 $email，请查收并点击链接。"
 		exit 0
 	endif
 	echo "Location: $ENVCGI_SERVER?MSG=Updated"
@@ -32,15 +32,15 @@ END
 	exit 0
 endif
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<h1>📇 Your details</h1>
+<h1>📇 个人信息</h1>
 <sql table=user where="user=$user">
 <form method=post><input type=hidden name=user>
 <table>
-<tr><td>Email</td><td><input name=email type=email size=40></td></tr>
-<tr><td>Name</td><td><input name=username size=40 autofocus></td></tr>
+<tr><td>邮箱</td><td><input name=email type=email size=40></td></tr>
+<tr><td>姓名</td><td><input name=username size=40 autofocus></td></tr>
 </table>
-<input type=submit value="Update">
+<input type=submit value="保存">
 </form>
 </sql>
-<a href="/changepassword.cgi">Change password</a>
+<a href="/changepassword.cgi">修改密码</a>
 'END'

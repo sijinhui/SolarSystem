@@ -5,47 +5,47 @@ source ../setcan
 
 echo "Content-encoding: none" # so no deflating and hence no caching for interactive status
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<h1>🙋 Adopting a fob</h1>
+<h1>🙋 绑定门卡</h1>
 <sql table="device LEFT JOIN aid USING (aid)" where="(nfcadmin='true' AND device.site=$USER_SITE OR nfctrusted='true') AND online IS NOT NULL"><set found=1></sql>
 <if found>
- <if not fob><p>First you will need to read a fob ID.</p></if>
+ <if not fob><p>请先读取门卡 ID。</p></if>
  <form name=f method=post style="display:inline;">
  <select name=device>
  <sql table="device" where="(nfcadmin='true' AND device.site=$USER_SITE  OR nfctrusted='true') AND online IS NOT NULL" ORDER=nfctrusted>
  <option value="$device"><output name=devicename blank="$device"></option>
  </sql>
  </select>
- <input type=submit name=IDENTIFY value="Read fob ID">
+ <input type=submit name=IDENTIFY value="读取门卡 ID">
  <input type=hidden name=fob>
  <if not IDENTIFY fob not fob="">
   <set mem><set capacity><sql table=fob where="fob='$fob'"><set foundfob=1><if mem><set mem="$mem"></if><if capacity><set capacity="$capacity"></if></sql>
-  <if not foundfob><p>Sorry, fob <output name=fob> is not recognised by the system. Any fob you wish to use must first be provisioned by the system administrator before it can be adopted. Please contact the system administrator <sql table=user where="admin='true'" limit=1 order="rand()"><output name=username></sql> for more information.</p></if>
+  <if not foundfob><p>抱歉，系统无法识别门卡 <output name=fob>。所有门卡都必须先由系统管理员初始化后才能绑定。详情请联系系统管理员 <sql table=user where="admin='true'" limit=1 order="rand()"><output name=username></sql>。</p></if>
   <if else>
-   <h2>🔑 Fob identified: <output name=fob href="editfob.cgi/$fob"></h2>
+   <h2>🔑 已识别门卡：<output name=fob href="editfob.cgi/$fob"></h2>
    <if IDENTIFIED><sql table=foborganisation where="fob='$fob' AND organisation=$USER_ORGANISATION"><set fobname="$fobname"></sql></if>
    <sql table="fobaid LEFT JOIN aid USING (aid) LEFT JOIN access USING (access)" WHERE="fob='$fob' AND access.organisation=$USER_ORGANISATION AND access.site=$USER_SITE">
-   <p>Already adopted for <output name=aidname> <output name=accessname></p>
+   <p>已绑定到 <output name=aidname> <output name=accessname></p>
    </sql>
-   <input name=fobname size=15 maxlength=15 placeholder="Name" autofocus><if mem> <output name=mem> free</if><br>
+   <input name=fobname size=15 maxlength=15 placeholder="名称" autofocus><if mem> 剩余 <output name=mem> 字节</if><br>
    <select name=aid><sql table=aid where='site=$USER_SITE'><option value=$aid><output name=aidname></option></sql></select>
    <select name=access><sql table=access where='site=$USER_SITE'><option value=$access><output name=accessname></option></sql></select>
-   <input name=ADOPT type=submit value="Adopt fob">
-   <if USER_ADMIN=true><br><input name=FORMAT type=submit value="Format"></if>
+   <input name=ADOPT type=submit value="绑定门卡">
+   <if USER_ADMIN=true><br><input name=FORMAT type=submit value="格式化"></if>
   </if>
  </if>
  <if device><ul id=status></ul></if>
  </form>
 </if>
 <if else>
- <p>No trusted devices currently on-line for adopting a fob.</p>
+ <p>当前没有可用于绑定门卡的受信任在线设备。</p>
 </if>
 'END'
 
 if($?IDENTIFY) then
-	echo "<script>e=document.createElement('li');e.textContent='Waiting for fob';document.getElementById('status').append(e);</script>"
+	echo "<script>e=document.createElement('li');e.textContent='等待刷卡';document.getElementById('status').append(e);</script>"
 	setenv fob `message --device="$device" --fob-identify --silent`
 	if("$fob" == "") then
-		echo "<script>e=document.createElement('li');e.textContent='Failed';document.getElementById('status').append(e);</script>"
+		echo "<script>e=document.createElement('li');e.textContent='失败';document.getElementById('status').append(e);</script>"
 	else
 		echo "<script>f.fob.value='$fob';e=document.createElement('input');e.type='hidden';e.name='IDENTIFIED';f.append(e);f.submit();</script>"
 	endif

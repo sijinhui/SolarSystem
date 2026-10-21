@@ -25,24 +25,24 @@ if($?AREAA) then #save
 	sqlwrite -qon "$DB" site site="$site" $allow
         sql "$DB" 'UPDATE device SET poke=NOW() WHERE site=$site'
 	message --poke
-	redirect / Updated
+	redirect / 已更新
 	exit 0
 endif
 
 done:
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
 <sql table=site WHERE="site=$site">
-<h1>🔠 Manage areas for <output name=sitename></h1>
-<p>You can list the names for areas you wish to use, and can define how they can interact to create implicitly set areas. Areas listed under <i>Set</i> are only set when all those under <i>And</i> are set.</p>
+<h1>🔠 防区管理：<output name=sitename></h1>
+<p>在这里为需要使用的防区命名，并可以定义防区之间的联动，生成自动布防的防区：只有当 <i>且</i> 列中勾选的防区全部布防后，<i>则布防</i> 列中勾选的防区才会被布防。名称留空即删除该防区。</p>
 <form method=post>
 <table>
 <eval C=3><for SPACE S="$MIX"><eval C=$C+3></for>
 <tr>
-<th>Area</th><th>Name</th>
+<th>防区</th><th>名称</th>
 <for SPACE S="$MIX">
 <eval N=$AREACOUNT+1>
 <th rowspan=$N>&nbsp;</th>
-<th>And</th><th>Set</th>
+<th>且</th><th>则布防</th>
 </for>
 </tr>
 <sql table=area WHERE="site=$site"><set "AREA$tag"="$areaname"></sql>
@@ -57,7 +57,7 @@ xmlsql -C -d "$DB" head.html - foot.html << 'END'
 </tr>
 </for>
 </table>
-<input type=submit value="Update">
+<input type=submit value="保存">
 </form>
 </sql>
 'END'

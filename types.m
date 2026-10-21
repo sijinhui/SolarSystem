@@ -32,23 +32,23 @@
 #define io(g,t)
 #endif
 
-i(I,Input);
-fi(E,Exit button);
-fi(O,Door open);
-fi(L,Lock disengaged);
-fi(D,Deadlock disengaged);
-fi(M,Manual override);
+i(I,输入);
+fi(E,出门按钮);
+fi(O,门已打开);
+fi(L,锁已打开);
+fi(D,反锁已解除);
+fi(M,手动解锁);
 
-o(P,Fixed output);
-o(O,Output);
-fo(L,Unlock output);
-fo(D,Undeadlock output);
-fo(B,Beep output);
-fo(E,Error output);
+o(P,固定输出);
+o(O,输出);
+fo(L,开锁输出);
+fo(D,解除反锁输出);
+fo(B,蜂鸣输出);
+fo(E,错误输出);
 
-io(IO,Input/Output);
-io(I,Input);
-io(O,Output);
+io(IO,输入/输出);
+io(I,输入);
+io(O,输出);
 
 g(0);
 g(1);

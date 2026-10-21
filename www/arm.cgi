@@ -29,12 +29,12 @@ done:
 source ../types
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
 <sql table=site where='site=$site'>
-<h1>🔔 Arming for <output name=sitename></h1>
+<h1>🔔 布防：<output name=sitename></h1>
 <form method=post>
 <table>
 <tr>
-<th></th><th>Arm</th>
-<th>Areas</th>
+<th></th><th>布防</th>
+<th>防区</th>
 </tr>
 <sql table=area where="site=$site">
 <set s='background:green;'><if armed=*$tag><set s='background:yellow;'></if><if alarm=*$tag><set s='background:red;'></if>
@@ -45,8 +45,8 @@ xmlsql -C -d "$DB" head.html - foot.html << 'END'
 </tr>
 </sql>
 </table>
-<input type=submit value="Arm" name=ARM>
-<IF CANSTRONG><input type=submit value="Force" name=STRONG></if>
+<input type=submit value="布防" name=ARM>
+<IF CANSTRONG><input type=submit value="强制布防" name=STRONG></if>
 </form>
 </sql>
 'END'

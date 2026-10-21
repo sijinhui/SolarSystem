@@ -1,7 +1,7 @@
 #!../login/logincheck --query /bin/csh -f
 setenv USERNAME `weblink --check`
 if($status) then
-	setenv MSG "The link you have used is not valid or has expired, sorry"
+	setenv MSG "抱歉，该链接无效或已过期"
 	source login.cgi
 	exit 0
 endif

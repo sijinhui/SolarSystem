@@ -15,12 +15,12 @@ if($?NEWPASSWORD) then
 endif
 setenv NEWPASSWORD `password`
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<p>We suggest a new password for you, but you can enter one of your choice if you prefer.</p>
+<p>系统为您生成了一个建议的新密码，您也可以自行输入。</p>
 <form method=post action=changepassword.cgi>
 	<table>
-		<IF Z=0><tr><td>Old password</td><td><input autocomplete="current-password" size=40 type=password name=OLDPASSWORD autofocus></td></tr></if>
-		<tr><td>New password</td><td><input autocomplete="new-password" size=40 name=NEWPASSWORD></td></td>
+		<IF Z=0><tr><td>原密码</td><td><input autocomplete="current-password" size=40 type=password name=OLDPASSWORD autofocus></td></tr></if>
+		<tr><td>新密码</td><td><input autocomplete="new-password" size=40 name=NEWPASSWORD></td></td>
 	</table>
-	<input type=submit value="Change" name=CHANGE>
+	<input type=submit value="修改" name=CHANGE>
 </form>
 'END'

@@ -53,11 +53,11 @@ sstypes (const char *fn)
                v);
    }
    start ("GPIOFUNCPICKI");
-   pick ("-", "No input func");
+   pick ("-", "无输入功能");
 #define fi(g,t) pick(#g,#t);
 #include "types.m"
    start ("GPIOFUNCPICKO");
-   pick ("-", "No output func");
+   pick ("-", "无输出功能");
 #define fo(g,t) pick(#g,#t);
 #include "types.m"
    start ("GPIOFUNCOUTI");
@@ -83,37 +83,37 @@ sstypes (const char *fn)
 #define o(g,t) list(#g);
 #include "types.m"
    start ("GPIOTYPEOUT");
-   out ("-", "Unused");
+   out ("-", "未使用");
 #define i(g,t) out(#g,#t);
 #define o(g,t) out(#g,#t);
 #include "types.m"
    start ("GPIOTYPEPICK");
-   pick ("-", "-- Unused --");
+   pick ("-", "-- 未使用 --");
 #define i(g,t) pick(#g,#t);
 #define o(g,t) pick(#g,#t);
 #include "types.m"
    start ("GPIOTYPEPICKI");
-   pick ("-", "-- Unused --");
+   pick ("-", "-- 未使用 --");
 #define i(g,t) pick(#g,#t);
 #include "types.m"
    start ("GPIOTYPEPICKO");
-   pick ("-", "-- Unused --");
+   pick ("-", "-- 未使用 --");
 #define o(g,t) pick(#g,#t);
 #include "types.m"
    start ("GPIOREALLIST");
 #define g(g) list(#g);
 #include "types.m"
    start ("GPIOREALOUT");
-   out ("-", "Unused");
+   out ("-", "未使用");
 #define g(g) out(#g,#g);
 #include "types.m"
-#define g(g) out("-"#g,#g" (active low)");
+#define g(g) out("-"#g,#g" (低电平有效)");
 #include "types.m"
    start ("GPIOREALPICK");
    pick ("-", "-- GPIO --");
 #define g(g) pick(#g,#g);
 #include "types.m"
-#define g(g) pick("-"#g,#g" (active low)");
+#define g(g) pick("-"#g,#g" (低电平有效)");
 #include "types.m"
    start ("GPIONUMLIST");
 #define gg(g)
@@ -124,7 +124,7 @@ sstypes (const char *fn)
 #define l(g,t) list(#t);
 #include "ESP32/main/logicalgpio.m"
    start ("GPIONUMOUT");
-   out ("-", "Unused");
+   out ("-", "未使用");
 #define gg(g)
 #define g(g) out(#g,#g);
 #include "types.m"
@@ -133,9 +133,9 @@ sstypes (const char *fn)
 #define l(g,t) out(#t,#g);
 #include "ESP32/main/logicalgpio.m"
 #define gg(g)
-#define g(g) out("-"#g,#g" (active low)");
+#define g(g) out("-"#g,#g" (低电平有效)");
 #include "types.m"
-#define n(g,t) out("-"#t,"NFC P"#g" (active low)");
+#define n(g,t) out("-"#t,"NFC P"#g" (低电平有效)");
 #include "types.m"
    start ("GPIONUMPICK");
    pick ("-", "-- GPIO --");
@@ -147,24 +147,24 @@ sstypes (const char *fn)
 #define l(g,t) pick(#t,#g);
 #include "ESP32/main/logicalgpio.m"
 #define gg(g)
-#define g(g) pick("-"#g,#g" (active low)");
+#define g(g) pick("-"#g,#g" (低电平有效)");
 #include "types.m"
-#define n(g,t) pick("-"#t,"NFC P"#g" (active low)");
+#define n(g,t) pick("-"#t,"NFC P"#g" (低电平有效)");
 #include "types.m"
    start ("GPIONFCLIST");
 #define n(g,t) list(#g);
 #include "types.m"
    start ("GPIONFCOUT");
-   out ("-", "Unused");
+   out ("-", "未使用");
 #define n(g,t) out(#g,"P"#g);
 #include "types.m"
-#define n(g,t) out("-"#g,"P"#g" (active low)");
+#define n(g,t) out("-"#g,"P"#g" (低电平有效)");
 #include "types.m"
    start ("GPIONFCPICK");
    pick ("-", "-- NFC GPIO --");
 #define n(g,t) pick(#g,"P"#g);
 #include "types.m"
-#define n(g,t) pick("-"#g,"P"#g" (active low)");
+#define n(g,t) pick("-"#g,"P"#g" (低电平有效)");
 #include "types.m"
    start ("GPIOIOLIST");
 #define io(g,t) list(#g);

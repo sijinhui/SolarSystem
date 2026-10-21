@@ -1,16 +1,17 @@
-<html><head>
-		<title>Access.me.uk</title><link rel=stylesheet href=/access.css />
+<html lang="zh-CN"><head>
+		<meta charset="utf-8">
+		<title>门禁管理系统</title><link rel=stylesheet href=/access.css />
 		<meta name="viewport" content="width=device-width">
 </head><body>
-<div style='float:right'>Access.me.uk</div>
+<div style='float:right'>门禁管理系统</div>
 <div style="display:inline-block;white-space:nowrap;">
-<a href="/"  style="text-decoration:none;">🏠</a>
-<if USER_SITE CANARM><a href="/arm.cgi/$USER_SITE">🔔</a></if>
-<if USER_SITE CANDISARM><a href="/disarm.cgi/$USER_SITE">🔕</a></if>
-<if USER_SITE CANVIEWLOG><a href="/log.cgi">🗒 </a></if>
-<if USER_SITE CANEDITFOB><a href="/adoptfob.cgi" style="text-decoration:none;">🙋</a></if>
-<if USER_SITE CANEDITFOB><a href="/editfob.cgi" style="text-decoration:none;">🔑</a></if>
-<if USER_SITE CANEDITDEVICE><a href="/editdevice.cgi" style="text-decoration:none;">🪛</a></if>
+<a href="/" title="首页" style="text-decoration:none;">🏠</a>
+<if USER_SITE CANARM><a href="/arm.cgi/$USER_SITE" title="布防">🔔</a></if>
+<if USER_SITE CANDISARM><a href="/disarm.cgi/$USER_SITE" title="撤防">🔕</a></if>
+<if USER_SITE CANVIEWLOG><a href="/log.cgi" title="日志">🗒 </a></if>
+<if USER_SITE CANEDITFOB><a href="/adoptfob.cgi" title="绑定门卡" style="text-decoration:none;">🙋</a></if>
+<if USER_SITE CANEDITFOB><a href="/editfob.cgi" title="门卡管理" style="text-decoration:none;">🔑</a></if>
+<if USER_SITE CANEDITDEVICE><a href="/editdevice.cgi" title="设备管理" style="text-decoration:none;">🪛</a></if>
 </div>
 <div style="display:inline-block;white-space:nowrap;">
 <if USER_ID>
@@ -18,12 +19,12 @@
 <if USER_ORGANISATION><set SET_ORGANISATION=$USER_ORGANISATION></if>
 <select name=SET_ORGANISATION onchange='organisation.submit();'>
 	<if USER_ADMIN=true>
-		<IF NOT USER_ORGANISATION><option value=0>-- Select organisation --</option></if>
+		<IF NOT USER_ORGANISATION><option value=0>-- 选择组织 --</option></if>
 		<sql table="organisation" ORDER="organisationname">
 		<option value=$organisation><output name=organisationname></option>
 		</sql>
 	</if><if else>
-		<IF NOT USER_ORGANISATION><option value=0>-- Select organisation --</option></if>
+		<IF NOT USER_ORGANISATION><option value=0>-- 选择组织 --</option></if>
 		<sql table="userorganisation LEFT JOIN organisation USING (organisation)" WHERE="user=$USER_ID" ORDER="organisationname">
 		<option value=$organisation><output name=organisationname></option>
 		</sql>
@@ -35,7 +36,7 @@
 <form style='display:inline;' name=site method=post action=/setsite.cgi$REQUEST_URI>
 <if USER_SITE><set SET_SITE=$USER_SITE></if>
 <select name=SET_SITE onchange='site.submit();'>
-<IF NOT USER_SITE><option value=0>-- Select site --</option></if>
+<IF NOT USER_SITE><option value=0>-- 选择站点 --</option></if>
 <sql table="site LEFT JOIN organisation USING (organisation)" WHERE="organisation=$USER_ORGANISATION" ORDER="sitename">
 <option value=$site><output name=sitename></option>
 </sql>
@@ -46,15 +47,15 @@
 <if MSG><span class=error><output name=MSG></span></if>
 <if USER_SITE>
 <sql table=site WHERE="site=$USER_SITE">
-<set s=""><if not missing=0><set s='background:red;'></if><span style="$s">Nodes <output name=nodes><if not missing=0> (missing <output name=missing>)</if></span>
+<set s=""><if not missing=0><set s='background:red;'></if><span style="$s">节点 <output name=nodes><if not missing=0>（缺失 <output name=missing>）</if></span>
 <table>
-<if status not status=""><tr><td>Status</td><td><output name=status></td></tr></if>
-<if not alarm=""><tr style='background:red;'><td>Alarm</td><td><output name=alarm></td></tr></if>
-<if else not alarmed=""><tr style='background:yellow;'><td>Alarmed</td><td><output name=alarmed></td></tr></if>
-<if not armed=""><tr><td>Armed</td><td><output name=armed></td></tr></if>
-<if not faulted=""><tr style='background:yellow;'><td>Faulted</td><td><output name=faulted></td></tr></if>
-<if not tampered=""><tr style='background:yellow;'><td>Tampered</td><td><output name=tampered></td></tr></if>
-<if not engineer=""><tr><td>Engineer</td><td><output name=engineer></td></tr></if>
+<if status not status=""><tr><td>状态</td><td><output name=status></td></tr></if>
+<if not alarm=""><tr style='background:red;'><td>报警中</td><td><output name=alarm></td></tr></if>
+<if else not alarmed=""><tr style='background:yellow;'><td>曾报警</td><td><output name=alarmed></td></tr></if>
+<if not armed=""><tr><td>已布防</td><td><output name=armed></td></tr></if>
+<if not faulted=""><tr style='background:yellow;'><td>故障</td><td><output name=faulted></td></tr></if>
+<if not tampered=""><tr style='background:yellow;'><td>防拆触发</td><td><output name=tampered></td></tr></if>
+<if not engineer=""><tr><td>工程模式</td><td><output name=engineer></td></tr></if>
 </table>
 </sql>
 </if>

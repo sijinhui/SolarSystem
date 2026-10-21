@@ -188,7 +188,7 @@ main (int argc, const char *argv[])
    if (!why)
    {                            // not allowed
       if (redirect)
-         sendredirect (NULL, "Sorry, access not allowed to this page");
+         sendredirect (NULL, "抱歉，您无权访问此页面");
    } else
    {
       if (reason)

@@ -19,12 +19,12 @@ source ../types
 setenv XMLSQLDEBUG
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
 <sql table=site where='site=$site'>
-<h1>🔕 Disarming for <output name=sitename></h1>
+<h1>🔕 撤防：<output name=sitename></h1>
 <form method=post>
 <table>
 <tr>
-<th></th><th>Disarm</th>
-<th>Areas</th>
+<th></th><th>撤防</th>
+<th>防区</th>
 </tr>
 <for space A="$AREALIST"><set areaname><sql table=area where="tag='$A' AND site=$site"><set areaname="$areaname"></sql><if not areaname armed=*$A><set areaname="?"></if>
 <if areaname>
@@ -37,7 +37,7 @@ xmlsql -C -d "$DB" head.html - foot.html << 'END'
 </if>
 </for>
 </table>
-<input type=submit value="Disarm" name=DISARM>
+<input type=submit value="撤防" name=DISARM>
 </form>
 </sql>
 'END'

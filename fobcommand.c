@@ -260,7 +260,7 @@ fobcommand (void *arg)
             if (mqttdump)
                warnx ("DF fail (%s): %s line %d", *res ? res : "Gone", func, line);
             if (!f.gone)
-               status ("Failed, remove fob");
+               status ("失败，请移开门卡");
          }
          return res;
       }
@@ -297,7 +297,7 @@ fobcommand (void *arg)
             {
                char *id = NULL;
                led ("R+A-");
-               status ("Waiting for fob");
+               status ("等待刷卡");
                // Wait fob connect...
                while (!f.done && !f.connected)
                {
@@ -321,13 +321,13 @@ fobcommand (void *arg)
 
             void doformat (void)
             {
-               status ("Formatting fob");
+               status ("正在格式化门卡");
                df (format (&d, key_ver (masterkey), key_aes (masterkey, fob)));
                df (get_uid (&d, uid));
                status (j_base16 (sizeof (uid), uid));
                if (hardformat)
                {
-                  status ("Hard format fob, all AIDs removed");
+                  status ("已彻底格式化门卡，所有 AID 已清除");
 #if 1
                   df (change_key (&d, 0x80, 0, key_aes (masterkey, fob), NULL));        // Hard reset to zero AES
                   df (authenticate (&d, 0, NULL));
@@ -358,7 +358,7 @@ fobcommand (void *arg)
 
             void doconnect (void)
             {
-               status ("Connecting to fob");
+               status ("正在连接门卡");
                df (select_application (&d, NULL));
 #if 0
                if (df_authenticate (&d, 0, key_aes (masterkey, fob)))
@@ -376,7 +376,7 @@ fobcommand (void *arg)
 
             void doadopt (void)
             {
-               status ("Adopting fob");
+               status ("正在绑定门卡");
                if (!key_type (aid0key))
                   randkey (aid0key);    // type 0 means not set
                unsigned int n;
@@ -388,13 +388,13 @@ fobcommand (void *arg)
                }
                if (!n)
                {
-                  status ("Creating application");
+                  status ("正在创建应用");
                   df (create_application (&d, aid, 0xEB, 2));
                }
                df (select_application (&d, aid));
                if (df_authenticate (&d, 0, key_aes (aid0key, fob)))
                {                // Set key 0
-                  status ("Setting application key");
+                  status ("正在设置应用密钥");
                   df (authenticate (&d, 0, NULL));      // own key to change it
                   df (change_key (&d, 0, key_ver (aid0key), NULL, key_aes (aid0key, fob)));
                }
@@ -404,7 +404,7 @@ fobcommand (void *arg)
                df (get_file_ids (&d, &fids));
                if (!(fids & (1 << 0x0A)))
                {
-                  status ("Making access file");
+                  status ("正在创建权限文件");
                   df (create_file (&d, 0x0A, 'B', 1, 0x0010, 256, 0, 0, 0, 0, 0));
                }
                // File 0 - name
@@ -412,27 +412,27 @@ fobcommand (void *arg)
                // File 1 - log
                if (!(fids & (1 << 0x01)))
                {
-                  status ("Making log file");
+                  status ("正在创建日志文件");
                   df (create_file (&d, 0x01, 'C', 1, 0x0100, 13, 0, 0, 10, 0, 0));
                }
                // File 2 - counter
                if (!(fids & (1 << 0x02)))
                {
-                  status ("Making counter file");
+                  status ("正在创建计数文件");
                   df (create_file (&d, 0x02, 'V', 1, 0x0010, 0, 0, 0x7FFFFFFF, 0, 0, 0));
                }
                // File A - access
-               status ("Storing access file");
+               status ("正在写入权限文件");
                df (write_data (&d, 0x0A, 'B', 1, 0, *afile + 1, afile));
                df (commit (&d));
                // This is last as it is what marks a fob as finally adopted
                // TODO what if not current key version?
                if (df_authenticate (&d, 1, key_aes (aid1key, fob)))
                {                // Auth failed, so set key 1 assuming it is NULL
-                  status ("Setting AID key");
+                  status ("正在设置 AID 密钥");
                   if (df_authenticate (&d, 1, NULL))
                   {             // Problem...
-                     status ("Application not current - removing application - try again");
+                     status ("应用版本不是最新，正在移除应用，请重试");
                      df (select_application (&d, NULL));
                      df_authenticate (&d, 0, key_aes (masterkey, fob));
                      df (delete_application (&d, aid));
@@ -465,7 +465,7 @@ fobcommand (void *arg)
 
             void doprovision (void)
             {                   // Expects to have formatted and connected
-               status ("Setting key");
+               status ("正在设置密钥");
                if (!key_type (masterkey))
                   randkey (masterkey);  // Type 0 is not set, so make a key
                if (adopt && !key_type (aid0key))
@@ -502,7 +502,7 @@ fobcommand (void *arg)
                   doadopt ();
             }
             if (!e && !f.gone)
-               status ("Done, remove card");
+               status ("完成，请移开门卡");
          }
       }
 
@@ -515,7 +515,7 @@ fobcommand (void *arg)
          }
       slot_send (f.device, "command", f.deviceid, "nfcdone", NULL);
       if (e)
-         status (*e ? e : "Card gone");
+         status (*e ? e : "门卡已移开");
       if (e && *e && mqttdump)
          warnx ("Fob failed: %s", e);
    }

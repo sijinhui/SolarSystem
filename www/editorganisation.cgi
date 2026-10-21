@@ -8,23 +8,23 @@ can --organisation=$organisation admin
 setenv NOTADMIN $status
 if($?DELETE) then
 	if(! $?SURE) then
-		setenv MSG "Are you sure?"
+		setenv MSG "确定吗？请勾选删除按钮旁的复选框确认"
 		goto done
 	endif
 	setenv C `sql -c "$DB" 'DELETE FROM organisation WHERE organisation=$organisation'`
 	if("$C" == "" || "$C" == "0") then
-		setenv MSG "Cannot delete as in use - you need to delete stuff in organiastion first"
+		setenv MSG "正在使用中，无法删除，请先删除该组织下的内容"
 		goto done
 	endif
-	redirect / Deleted
+	redirect / 已删除
 	exit 0
 endif
 if($?organisationname) then
 	if($organisation == 0) then
 		setenv organisation `sql -i "$DB" 'INSERT INTO organisation SET organisation=0'`
-		setenv site `sql -i "$DB" 'INSERT INTO site SET sitename="Main building",organisation=$organisation,wifissid="SolarSystem",wifipass="security"'`
-		sql "$DB" 'INSERT INTO access SET organisation=$organisation,site="$site",accessname="Default access"'
-		sql "$DB" 'INSERT INTO area SET organisation=$organisation,site=$site,tag="A",areaname="Main building"'
+		setenv site `sql -i "$DB" 'INSERT INTO site SET sitename="主楼",organisation=$organisation,wifissid="SolarSystem",wifipass="security"'`
+		sql "$DB" 'INSERT INTO access SET organisation=$organisation,site="$site",accessname="默认权限"'
+		sql "$DB" 'INSERT INTO area SET organisation=$organisation,site=$site,tag="A",areaname="主楼"'
 		setenv aid `makeaid --site="$site"`
 		sqlwrite -qon "$DB" organisation organisationname
 		redirect "editorganisation.cgi/$organisation"
@@ -36,15 +36,15 @@ if($?organisationname) then
 endif
 done:
 xmlsql -C -d "$DB" head.html - foot.html << 'END'
-<h1><if organisation=0>🆕 </if>🏢 Organisation</h1>
+<h1><if organisation=0>🆕 </if>🏢 组织</h1>
 <form method=post>
 <sql table=organisation key=organisation>
 <table>
-<tr><td>Name</td><td><input name=organisationname size=40 autofocus></td></tr>
+<tr><td>名称</td><td><input name=organisationname size=40 autofocus></td></tr>
 </table>
 </sql>
-<input type=submit value="Update">
-<IF NOT organisation=0 USER_ADMIN=true><input type=submit value="Delete" name=DELETE><input type=checkbox name=SURE></IF>
+<input type=submit value="保存">
+<IF NOT organisation=0 USER_ADMIN=true><input type=submit value="删除" name=DELETE><input type=checkbox name=SURE title='勾选以确认删除'></IF>
 </form>
 </sql>
 'END'

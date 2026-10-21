@@ -5,6 +5,12 @@ name: build-firmware
 on:
   push:
   workflow_dispatch:
+    inputs:
+      loglevel:
+        description: "Log level for a debug build (ERROR = upstream default)"
+        default: ERROR
+        type: choice
+        options: [ERROR, WARN, INFO, DEBUG]
 
 jobs:
   build:
@@ -32,13 +38,20 @@ jobs:
         run: |
           git config --global --add safe.directory '*'
           . "$IDF_PATH/export.sh" >/dev/null
+          LOGLEVEL="${{ inputs.loglevel || 'ERROR' }}"
+          if [ "$LOGLEVEL" != ERROR ]; then
+            cp ESP32/sdkconfig.defaults ESP32/sdkconfig
+            sed -i -e 's/^CONFIG_LOG_DEFAULT_LEVEL_ERROR=y/# CONFIG_LOG_DEFAULT_LEVEL_ERROR is not set/' \
+                   -e "s/^# CONFIG_LOG_DEFAULT_LEVEL_${LOGLEVEL} is not set/CONFIG_LOG_DEFAULT_LEVEL_${LOGLEVEL}=y/" \
+                   -e '/^CONFIG_LOG_DEFAULT_LEVEL=/d' -e '/^CONFIG_LOG_MAXIMUM_LEVEL=/d' ESP32/sdkconfig
+          fi
           make -C ESP32 ${{ matrix.variant }}
-          grep -E '^(# )?CONFIG_(SPIRAM_MODE_(QUAD|OCT)|REVK_BUILD_SUFFIX|REVK_GPIO_INIT)[ =]' ESP32/sdkconfig
+          grep -E '^(# )?CONFIG_(SPIRAM_MODE_(QUAD|OCT)|REVK_BUILD_SUFFIX|REVK_GPIO_INIT|LOG_DEFAULT_LEVEL[A-Z_]*)[ =]' ESP32/sdkconfig
           ls -l www/SS-*.bin
 
       - uses: actions/upload-artifact@v4
         with:
-          name: TEST-ONLY-throwaway-key-${{ matrix.variant }}
+          name: TEST-ONLY-throwaway-key-${{ matrix.variant }}-${{ inputs.loglevel || 'ERROR' }}
           path: |
             www/SS-*.bin
             ESP32/build/SS-unsigned.bin

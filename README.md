@@ -1,3 +1,5 @@
+> Fork of [codeberg.org/RevK/SolarSystem](https://codeberg.org/RevK/SolarSystem). N16R8 (octal PSRAM) support is on branch `n16r8-octal-psram`.
+
 # SolarSystem
 
 Modular access control and alarm system.

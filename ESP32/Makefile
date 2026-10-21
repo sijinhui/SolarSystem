@@ -31,10 +31,12 @@ s3oct:
 	@make
 
 psramquad:
-	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_OCT=y/# CONFIG_SPIRAM_MODE_OCT is not set/' -e 's/^# CONFIG_SPIRAM_MODE_QUAD is not set/CONFIG_SPIRAM_MODE_QUAD=y/' sdkconfig && rm -f sdkconfig.bak
+	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_OCT=y/# CONFIG_SPIRAM_MODE_OCT is not set/' -e 's/^# CONFIG_SPIRAM_MODE_QUAD is not set/CONFIG_SPIRAM_MODE_QUAD=y/' -e 's/^# CONFIG_REVK_GPIO_INIT is not set/CONFIG_REVK_GPIO_INIT=y/' sdkconfig && rm -f sdkconfig.bak
+
+# REVK_GPIO_INIT reconfigures every GPIO 0-48 at startup, including 33-37 used by octal PSRAM, which hangs the chip
 
 psramoct:
-	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_QUAD=y/# CONFIG_SPIRAM_MODE_QUAD is not set/' -e 's/^# CONFIG_SPIRAM_MODE_OCT is not set/CONFIG_SPIRAM_MODE_OCT=y/' sdkconfig && rm -f sdkconfig.bak
+	@sed -i.bak -e 's/^CONFIG_SPIRAM_MODE_QUAD=y/# CONFIG_SPIRAM_MODE_QUAD is not set/' -e 's/^# CONFIG_SPIRAM_MODE_OCT is not set/CONFIG_SPIRAM_MODE_OCT=y/' -e 's/^CONFIG_REVK_GPIO_INIT=y/# CONFIG_REVK_GPIO_INIT is not set/' sdkconfig && rm -f sdkconfig.bak
 
 pico:
 	components/ESP32-RevK/setbuildsuffix -S1-PICO

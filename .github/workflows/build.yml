@@ -33,7 +33,7 @@ jobs:
           git config --global --add safe.directory '*'
           . "$IDF_PATH/export.sh" >/dev/null
           make -C ESP32 ${{ matrix.variant }}
-          grep -E '^(# )?CONFIG_(SPIRAM_MODE_(QUAD|OCT)|REVK_BUILD_SUFFIX)[ =]' ESP32/sdkconfig
+          grep -E '^(# )?CONFIG_(SPIRAM_MODE_(QUAD|OCT)|REVK_BUILD_SUFFIX|REVK_GPIO_INIT)[ =]' ESP32/sdkconfig
           ls -l www/SS-*.bin
 
       - uses: actions/upload-artifact@v4
@@ -42,6 +42,7 @@ jobs:
           path: |
             www/SS-*.bin
             ESP32/build/SS-unsigned.bin
+            ESP32/build/SS.elf
             ESP32/build/bootloader/bootloader.bin
             ESP32/build/partition_table/partition-table.bin
             ESP32/build/ota_data_initial.bin
